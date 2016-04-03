@@ -110,6 +110,19 @@ class SeleniumHelper:
 		fieldObject.send_keys(Keys.RETURN)
 		return fieldObject
 
+	def clickSelector(self, selector):
+		element = self.getElement(selector)
+		if element:
+			try:
+				actions = webdriver.ActionChains(self.driver)
+				actions.move_to_element(element)
+				actions.click(element)
+				actions.perform()
+				return True
+			except:
+				return False
+		return False
+
 	def click(self, element):
 		actions = webdriver.ActionChains(self.driver)
 		actions.move_to_element(element)
