@@ -14,6 +14,7 @@ class LinkedinController(SeleniumHelper):
 	SECTIONS['CONTENT'] = {}
 	FIELDS['CONTENT'] = {}
 	SECTIONS['CONTENT']['NAME'] = {'selector':'#name', 'type':'text', 'quantity':'single'}
+	SECTIONS['CONTENT']['IMAGE'] = {'selector':'.image.photo', 'type':'attr', 'attr':'src', 'quantity':'single'}
 	SECTIONS['CONTENT']['CONNECTIONS'] = {'selector':'.member-connections', 'type':'text', 'quantity':'single'}
 	SECTIONS['CONTENT']['TITLE'] = {'selector':'p.title', 'type':'text', 'quantity':'single'}
 	SECTIONS['CONTENT']['LOCATION'] = {'selector':'.locality', 'type':'text', 'quantity':'single'}
@@ -35,6 +36,11 @@ class LinkedinController(SeleniumHelper):
 	FIELDS['CONTENT']['BRIEF_EDUCATION'] = {}
 	FIELDS['CONTENT']['BRIEF_EDUCATION']['NAME'] = {'selector':'a', 'type':'text'}
 	FIELDS['CONTENT']['BRIEF_EDUCATION']['URL'] = {'selector':'a', 'type':'attr', 'attr':'href'}
+
+	SECTIONS['CONTENT']['WEBSITES'] = {'selector':'[data-section="websites"] li', 'quantity':'multiple'}
+	FIELDS['CONTENT']['WEBSITES'] = {}
+	FIELDS['CONTENT']['WEBSITES']['NAME'] = {'selector':'a', 'type':'text'}
+	FIELDS['CONTENT']['WEBSITES']['URL'] = {'selector':'a', 'type':'attr', 'attr':'href'}
 
 	SECTIONS['CONTENT']['POSTS'] = {'selector':'.post', 'quantity':'multiple'}
 	FIELDS['CONTENT']['POSTS'] = {}
@@ -172,8 +178,14 @@ class LinkedinController(SeleniumHelper):
 	FIELDS['CONTENT']['RELATED']['VALUE'] = {'selector':'.headline', 'type':'text'}
 	FIELDS['CONTENT']['RELATED']['IMG'] = {'selector':'img', 'type':'attr', 'attr':'src'}
 
+	def performClicks(self):
+		self.clickSelector('.skill.see-more')
+		self.clickSelector('.interest.see-more')
+		self.clickSelector('.group.see-more')
+
 	def extractProfile(self, url):
 		self.loadAndWait(url, self.CONTAINER['CONTENT'])
+		self.performClicks()
 		self.data = self.extractSection('CONTENT')
 		return self.data
 
