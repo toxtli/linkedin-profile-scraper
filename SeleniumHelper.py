@@ -173,6 +173,7 @@ class SeleniumHelper:
 
 	def loadAndWait(self, url, selector, wait=9999):
 		self.loadPage(url)
+		print 'Finding element.'
 		return self.waitShowElement(selector, wait)
 
 	def close(self):
