@@ -171,9 +171,11 @@ class SeleniumHelper:
 				exit[subsection] = self.getFieldValue(container)
 		return exit
 
+	def saveScreenshoot(self, filePath):
+		self.driver.save_screenshot(filePath)
+
 	def loadAndWait(self, url, selector, wait=9999):
 		self.loadPage(url)
-		print 'Finding element.'
 		return self.waitShowElement(selector, wait)
 
 	def close(self):
