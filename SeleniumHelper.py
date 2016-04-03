@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 class SeleniumHelper:
 	driver = None
-	WAIT = 20
+	WAIT = 99999
 
 	def loadPage(self, page):
 		try:
@@ -23,7 +23,7 @@ class SeleniumHelper:
 		except TimeoutException:
 			return False
 
-	def waitShowElement(self, selector, wait=20):
+	def waitShowElement(self, selector, wait=99999):
 		try:
 			wait = WebDriverWait(self.driver, wait)
 			element = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, selector)))
@@ -171,7 +171,7 @@ class SeleniumHelper:
 				exit[subsection] = self.getFieldValue(container)
 		return exit
 
-	def loadAndWait(self, url, selector, wait=20):
+	def loadAndWait(self, url, selector, wait=9999):
 		self.loadPage(url)
 		return self.waitShowElement(selector, wait)
 
