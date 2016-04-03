@@ -173,13 +173,7 @@ class LinkedinController(SeleniumHelper):
 	FIELDS['CONTENT']['RELATED']['IMG'] = {'selector':'img', 'type':'attr', 'attr':'src'}
 
 	def extractProfile(self, url):
-		print 'Loading...'
-		self.loadPage(url)
-		print 'Finding profile section.'
-		self.saveScreenshoot('img1.png')
-		self.waitShowElement(self.CONTAINER['CONTENT'])
-		print 'Profile section found.'
-		self.saveScreenshoot('img2.png')
+		self.loadAndWait(url, self.CONTAINER['CONTENT'])
 		self.data = self.extractSection('CONTENT')
 		return self.data
 
