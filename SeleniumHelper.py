@@ -1,3 +1,5 @@
+import sys
+import time
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException 
 from selenium.common.exceptions import TimeoutException
@@ -122,6 +124,21 @@ class SeleniumHelper:
 			except:
 				return False
 		return False
+
+	def clickMultiple(self, selector):
+		exit = False
+		elements = self.getElements(selector)
+		if elements:
+			for element in elements:
+				try:
+					actions = webdriver.ActionChains(self.driver)
+					actions.move_to_element(element)
+					actions.click(element)
+					actions.perform()
+					exit = True
+				except:
+					pass
+		return exit
 
 	def click(self, element):
 		actions = webdriver.ActionChains(self.driver)
